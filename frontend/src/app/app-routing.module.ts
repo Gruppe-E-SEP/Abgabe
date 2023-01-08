@@ -5,6 +5,8 @@ import {RegisterAdminFormComponent} from "./components/register-admin-form/regis
 import {HomeComponent} from "./components/home/home.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {AddLigaFormComponent} from "./components/add-liga-form/add-liga-form.component";
+import {LoginFormComponent} from "./components/login-form/login-form.component";
+import {AdminLoginFormComponent} from "./components/admin-login-form/admin-login-form.component";
 
 const routes: Routes = [
 
@@ -28,6 +30,13 @@ const routes: Routes = [
   {
     path: 'liga',
     component: AddLigaFormComponent
+  },
+  {path : "user/login",
+  component: LoginFormComponent
+  },
+  {
+  path : "admin/login",
+  component: AdminLoginFormComponent
   }
 ];
 

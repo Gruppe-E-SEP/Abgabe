@@ -14,6 +14,7 @@ import {UsersService} from "./services/users.service";
 import {HttpClientModule} from "@angular/common/http";
 import {AdminService} from "./services/admin.service";
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { AdminLoginFormComponent } from './components/admin-login-form/admin-login-form.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     RegisterAdminFormComponent,
     AddLigaFormComponent,
     DashboardComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    AdminLoginFormComponent
   ],
   imports: [
     BrowserModule,
