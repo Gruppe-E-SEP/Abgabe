@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<div style="text-align:center">
+
+<div class="card my-5" xmlns="http://www.w3.org/1999/html">
+  <div class="card-body">
+    <h1>User einloggen </h1>
+    <form (ngSubmit)="onSubmit(loginForm.value)" #loginForm="ngForm">
+
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email"
+               class="form-control"
+               id="email"
+               name="email"
+               placeholder="Email"
+               required #email="ngModel" ngModel>
+      </div>
+      <div [hidden]="!email.pristine" class="alert alert-danger">Email eingeben!</div>
+
+      <div class="form-group">
+        <label for="passwort">Passwort</label>
+        <input type="passwort"
+               class="form-control"
+               id="passwort"
+               name="passwort"
+               placeholder="Passwort"
+               required #passwort="ngModel" ngModel>
+      </div>
+
+      <button  type="submit" [disabled]="!loginForm.form.valid"
+               class="btn btn-info">Bestätigen</button>
+
+    </form>
+    <p style="font-size: 17px">Als Administrator einloggen, klicken Sie
+      <a routerLink="/admin/register" > hier.</a>
+    </p>
+
+  </div>
+</div>
+
+</div>
+
+
+
