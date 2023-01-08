@@ -19,6 +19,9 @@ export class UsersService {
   public registerUser(user: Users) {
     return this.http.post('http://localhost:8080/user/create', user,{responseType: 'text'});
   }
+  public loginUser(user : Users){
+    return this.http.post("http://localhost:8080/user/login", user,{responseType: "text"})
+  }
 
 
 }

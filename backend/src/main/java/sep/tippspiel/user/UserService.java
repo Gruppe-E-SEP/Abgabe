@@ -40,6 +40,38 @@ public class UserService {
         }
 
     }
+    public boolean loginUser(String email, String passwort){
+        Long id = this.userRepository.findUserIdByEmail(email);
+
+        Users user = this.userRepository.getReferenceById(id);
+
+
+        String sha256hex = Hashing.sha256()
+                    .hashString(passwort, StandardCharsets.UTF_8)
+                    .toString();
+
+        if(email == user.getEmail() && user.getPasswort() == sha256hex){
+            user.logIn();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public boolean logoutUser(String email){
+        Long id = this.userRepository.findUserIdByEmail(email);
+
+        Users user = this.userRepository.getReferenceById(id);
+
+        if(email == user.getEmail() && user.getIsLoggedIn() == true){
+            user.logOut();
+            return true;
+
+        }
+        else{
+            return false;
+        }
+    }
 
     public List<Users> all() {return userRepository.findAll();}
 

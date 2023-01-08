@@ -13,6 +13,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import {UsersService} from "./services/users.service";
 import {HttpClientModule} from "@angular/common/http";
 import {AdminService} from "./services/admin.service";
+import { LoginFormComponent } from './components/login-form/login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {AdminService} from "./services/admin.service";
     HomeComponent,
     RegisterAdminFormComponent,
     AddLigaFormComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,

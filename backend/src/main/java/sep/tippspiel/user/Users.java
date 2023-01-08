@@ -1,19 +1,18 @@
 package sep.tippspiel.user;
 
 import com.sun.istack.NotNull;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.AllArgsConstructor;
 import sep.tippspiel.tipp.Tipp;
 import sep.tippspiel.tipprunde.Tipprunde;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@AllArgsConstructor
 @Entity
 public class Users implements Serializable {
 
@@ -21,6 +20,13 @@ public class Users implements Serializable {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    public Users() {
+        this.isLoggedIn = false;
+    }
+
+
+
 
     public Long getId() {
         return id;
@@ -52,6 +58,8 @@ public class Users implements Serializable {
 
     @Column(name = "image")
     private String image;
+
+    private boolean isLoggedIn = false;
 
 
     @OneToMany(mappedBy = "users")
@@ -108,7 +116,17 @@ public class Users implements Serializable {
         this.image = image;
     }
 
-    public Users() {};
+    public void logIn(){
+        this.isLoggedIn = true;
+    }
+    public void logOut(){
+        this.isLoggedIn = false;
+    }
+    public boolean getIsLoggedIn(){
+        return isLoggedIn;
+    }
+
+
 
     public Users(String vorname, String nachname,Date date, String email, String passwort) {
         this.vorname = vorname;
@@ -116,6 +134,7 @@ public class Users implements Serializable {
         this.date = date;
         this.email = email;
         this.passwort = passwort;
+
     }
 
     @Override

@@ -72,6 +72,31 @@ public class UserController {
 
 
     }
+    @PostMapping(path = "/login", consumes = "application/json")
+    public ResponseEntity<String> loginUser(@RequestBody User user){
+        Users users = new Users();
+        user.setEmail(users.getEmail());
+        user.setPasswort(users.getPasswort());
+
+        if(this.userService.loginUser(user.getEmail(), user.getPasswort())){
+            return new ResponseEntity<>("Erfolgreich eingeloggt", HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>("User konnte nicht eingeloggt werden", HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PostMapping(path = "/logout", consumes = "application/json")
+    public ResponseEntity<String> logoutUser (@RequestBody User user){
+        Users users = new Users();
+        user.setEmail(users.getEmail());
+
+        if(this.userService.logoutUser(user.getEmail())){
+            return new ResponseEntity<>("Erfolgreich ausgeloggt", HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>("User konnte nicht ausgeloggt werden", HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @GetMapping(path = "/all", produces = "application/json")
     public ResponseEntity<List<Users>> getAllUsers() {
