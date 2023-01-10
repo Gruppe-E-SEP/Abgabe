@@ -46,15 +46,14 @@ public class UserService {
         Users user = this.userRepository.getReferenceById(id);
 
 
-        String sha256hex = Hashing.sha256()
-                    .hashString(passwort, StandardCharsets.UTF_8)
-                    .toString();
-
-        if(email == user.getEmail() && user.getPasswort() == sha256hex){
+        if(email == user.getEmail() && user.getPasswort() == passwort){
+            System.out.println("Login Succesfull");
             user.logIn();
+            System.out.println(user.getIsLoggedIn());
             return true;
         }
         else{
+            System.out.println("Login failed");
             return false;
         }
     }

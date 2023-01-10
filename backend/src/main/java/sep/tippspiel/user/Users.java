@@ -2,6 +2,7 @@ package sep.tippspiel.user;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import sep.tippspiel.tipp.Tipp;
 import sep.tippspiel.tipprunde.Tipprunde;
 
@@ -11,8 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Users implements Serializable {
 
@@ -21,9 +21,6 @@ public class Users implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    public Users() {
-        this.isLoggedIn = false;
-    }
 
 
 
@@ -58,7 +55,7 @@ public class Users implements Serializable {
 
     @Column(name = "image")
     private String image;
-
+    @Column(name = "LoggedIn")
     private boolean isLoggedIn = false;
 
 
@@ -119,9 +116,9 @@ public class Users implements Serializable {
     public void logIn(){
         this.isLoggedIn = true;
     }
-    public void logOut(){
-        this.isLoggedIn = false;
+    public void logOut(){this.isLoggedIn = false;
     }
+
     public boolean getIsLoggedIn(){
         return isLoggedIn;
     }
@@ -134,6 +131,7 @@ public class Users implements Serializable {
         this.date = date;
         this.email = email;
         this.passwort = passwort;
+        this.isLoggedIn = false;
 
     }
 

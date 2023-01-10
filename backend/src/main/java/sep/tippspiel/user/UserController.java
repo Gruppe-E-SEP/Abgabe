@@ -75,14 +75,15 @@ public class UserController {
     }
     @PostMapping(path = "/login", consumes = "application/json")
     public ResponseEntity<String> loginUser(@RequestBody User user){
+        System.out.println(user.getEmail() + " " + user.getPasswort());
 
         Long id = this.userRepository.findUserIdByEmail(user.getEmail());
         Users users = this.userRepository.getReferenceById(id);
+        System.out.println(users.getEmail()  + " " +  user.getPasswort());
 
-        user.setEmail(users.getEmail());
-        user.setPasswort(users.getPasswort());
 
-        if(this.userService.loginUser(user.getEmail(), user.getPasswort())){
+
+        if(this.userService.loginUser(users.getEmail(), users.getPasswort())){
             return new ResponseEntity<>("Erfolgreich eingeloggt", HttpStatus.OK);
         }
         else{
