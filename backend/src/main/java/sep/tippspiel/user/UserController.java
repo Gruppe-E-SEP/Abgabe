@@ -53,6 +53,7 @@ public class UserController {
     TippService tippService;
 
 
+
     @PostMapping(path = "/create", consumes = "application/json")
     public ResponseEntity<String> createUser(@RequestBody Users user) {
 
@@ -74,7 +75,10 @@ public class UserController {
     }
     @PostMapping(path = "/login", consumes = "application/json")
     public ResponseEntity<String> loginUser(@RequestBody User user){
-        Users users = new Users();
+
+        Long id = this.userRepository.findUserIdByEmail(user.getEmail());
+        Users users = this.userRepository.getReferenceById(id);
+
         user.setEmail(users.getEmail());
         user.setPasswort(users.getPasswort());
 
