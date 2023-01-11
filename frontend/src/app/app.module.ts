@@ -15,6 +15,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {AdminService} from "./services/admin.service";
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { AdminLoginFormComponent } from './components/admin-login-form/admin-login-form.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,10 @@ import { AdminLoginFormComponent } from './components/admin-login-form/admin-log
   ],
   providers: [
     UsersService,
-    AdminService],
+    AdminService,
+    CookieService,
+  ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

@@ -74,7 +74,7 @@ public class UserController {
 
     }
     @PostMapping(path = "/login", consumes = "application/json")
-    public ResponseEntity<String> loginUser(@RequestBody User user){
+    public ResponseEntity<AuthResponse> loginUser(@RequestBody User user){
         System.out.println(user.getEmail() + " " + user.getPasswort());
 
         Long id = this.userRepository.findUserIdByEmail(user.getEmail());
@@ -84,10 +84,10 @@ public class UserController {
 
 
         if(this.userService.loginUser(users.getEmail(), users.getPasswort())){
-            return new ResponseEntity<>("Erfolgreich eingeloggt", HttpStatus.OK);
+            return new ResponseEntity<>(new AuthResponse(false, "SUCCESS!"), HttpStatus.OK);
         }
         else{
-            return new ResponseEntity<>("User konnte nicht eingeloggt werden", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new AuthResponse(true, "FEHLER!"), HttpStatus.BAD_REQUEST);
         }
     }
     @PostMapping(path = "/logout", consumes = "application/json")

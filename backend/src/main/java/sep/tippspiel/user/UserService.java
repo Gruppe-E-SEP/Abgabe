@@ -50,6 +50,7 @@ public class UserService {
             System.out.println("Login Succesfull");
             user.logIn();
             System.out.println(user.getIsLoggedIn());
+            userRepository.save(user);
             return true;
         }
         else{

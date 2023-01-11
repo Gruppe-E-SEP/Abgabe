@@ -131,7 +131,7 @@ public class Users implements Serializable {
         this.date = date;
         this.email = email;
         this.passwort = passwort;
-        this.isLoggedIn = false;
+        this.isLoggedIn = isLoggedIn;
 
     }
 
