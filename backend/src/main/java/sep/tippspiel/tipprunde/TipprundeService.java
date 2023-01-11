@@ -41,6 +41,10 @@ public class TipprundeService {
     @Autowired
     private GewichtRepository gewichtRepository;
 
+    public boolean joinTipprunde(Users users, Tipprunde tipprunde){
+      tipprunde.setUsers(users);
+      return true;
+    }
     public int bewerteTippspiel(String vorhersage, String score) {
         //richtiges Ergebnis
         if (vorhersage.equals(score)) {

@@ -9,6 +9,7 @@ RUN npm install
 COPY . .
 RUN npm install -g @angular/cli
 RUN npm install rxjs
+RUN npm install ngx-cookie-service
 RUN ng build --configuration production --output-path=/dist/out
 
 ################

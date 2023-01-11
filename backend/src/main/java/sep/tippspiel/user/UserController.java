@@ -17,6 +17,8 @@ import sep.tippspiel.tipprunde.Tipprunde;
 import sep.tippspiel.tipprunde.TipprundeService;
 
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -54,6 +56,7 @@ public class UserController {
 
 
 
+
     @PostMapping(path = "/create", consumes = "application/json")
     public ResponseEntity<String> createUser(@RequestBody Users user) {
 
@@ -74,20 +77,25 @@ public class UserController {
 
     }
     @PostMapping(path = "/login", consumes = "application/json")
-    public ResponseEntity<AuthResponse> loginUser(@RequestBody User user){
+    public ResponseEntity<String> loginUser(@RequestBody User user, HttpServletResponse response){
         System.out.println(user.getEmail() + " " + user.getPasswort());
 
         Long id = this.userRepository.findUserIdByEmail(user.getEmail());
         Users users = this.userRepository.getReferenceById(id);
         System.out.println(users.getEmail()  + " " +  user.getPasswort());
 
-
-
         if(this.userService.loginUser(users.getEmail(), users.getPasswort())){
-            return new ResponseEntity<>(new AuthResponse(false, "SUCCESS!"), HttpStatus.OK);
+            Cookie cookie = new Cookie("email", users.getEmail());
+            cookie.setMaxAge(36000);
+            cookie.setDomain("localhost");
+            cookie.setPath("/");
+            cookie.setSecure(false);
+            response.addCookie(cookie);
+            System.out.println(cookie + " " + cookie.getPath());
+            return new ResponseEntity<>("Login successful", HttpStatus.OK);
         }
         else{
-            return new ResponseEntity<>(new AuthResponse(true, "FEHLER!"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>( "FEHLER!", HttpStatus.BAD_REQUEST);
         }
     }
     @PostMapping(path = "/logout", consumes = "application/json")
@@ -172,7 +180,14 @@ public class UserController {
         this.tippService.erstelleTipp(vorhersage, besitzerId);
         return new ResponseEntity<>("Tipp wurde erflolgreich erstellt", HttpStatus.OK);
     }
-
+    @PostMapping(path = "/joinTipp")
+    public ResponseEntity<String> joinTipp(@RequestBody Users users, @RequestBody Tipprunde tipprunde){
+        if (tipprunde.getId() == null || users.getId() == null){
+            return new ResponseEntity<>("Tipprunde oder Nutzer existieren nicht", HttpStatus.BAD_REQUEST);
+        }
+        this.tipprundeService.joinTipprunde(users, tipprunde);
+        return new ResponseEntity<>("Tipprunde beigetreten", HttpStatus.OK);
+    }
 
     @PutMapping(path = "/setTipprundePassword")
     public ResponseEntity<String> setTipprundePasswort(@RequestParam Long id,@RequestParam  String passwort) {

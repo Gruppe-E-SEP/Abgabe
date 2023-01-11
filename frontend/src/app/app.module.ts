@@ -11,11 +11,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { AddLigaFormComponent } from './components/add-liga-form/add-liga-form.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import {UsersService} from "./services/users.service";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AdminService} from "./services/admin.service";
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { AdminLoginFormComponent } from './components/admin-login-form/admin-login-form.component';
 import { CookieService } from 'ngx-cookie-service';
+
 
 @NgModule({
   declarations: [
@@ -43,5 +44,6 @@ import { CookieService } from 'ngx-cookie-service';
   ],
   bootstrap: [AppComponent]
 })
+
 
 export class AppModule { }

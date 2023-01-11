@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AddLigaFormComponent {
 
-
+  onSubmit(value: any){
+  console.log("Die Liga wurde erstellt");
+}
 
 }

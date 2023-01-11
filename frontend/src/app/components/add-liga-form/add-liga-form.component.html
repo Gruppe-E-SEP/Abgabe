@@ -1,12 +1,74 @@
-
-
+<app-header></app-header>
 
 <div style="text-align:center">
 
-  <h2>CSV-Datei importieren</h2>
-  <br>
-  <br>
-<input type="file" class="file-upload" onchange="console.log(event.target.files)">
+
+  <div class="card my-5" xmlns="http://www.w3.org/1999/html">
+    <div class="card-body">
+      <h1>Liga erstellen</h1>
+      <form (ngSubmit)="onSubmit(addLigaForm.value)" #addLigaForm="ngForm">
 
 
-</div>
+        <div class="form-group">
+          <label for="image">Profilbild</label>
+          <input type="file"
+                 class="form-control"
+                 id="image"
+                 accept="image/png, image/jpeg"
+                 name="image"
+                 placeholder="Profilbild"
+                 required>
+        </div>
+        <br>
+        <br>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text"
+                 class="form-control"
+                 id="name"
+                 name="name"
+                 placeholder="name"
+                 required #name="ngModel" ngModel>
+        </div>
+        <div [hidden]="!name.pristine" class="alert alert-danger">Name eingeben!</div>
+        <br>
+        <br>
+        <div class="form-group">
+          <label for="passwort">Passwort</label>
+          <input type="passwort"
+                 class="form-control"
+                 id="passwort"
+                 name="passwort"
+                 placeholder="Passwort"
+                 required #passwort="ngModel" ngModel>
+        </div>
+        <div [hidden]="!passwort.pristine" class="alert alert-danger">Passwort eingeben!</div>
+<br>
+        <!-- <div class="form-group">
+           <label for="image">Profilbild</label>
+           <input type="file" [(ngModel)]="user.image"
+                  class="form-control"
+                  id="image"
+                  accept="image/png, image/jpeg"
+                  name="image"
+                  placeholder="Profilbild"
+                  required #image="ngModel">
+         </div>-->
+
+     <!--   <button  type="submit" [disabled]="!registerForm.form.valid"
+                 class="btn btn-info">Bestätigen</button>
+
+      </form>
+
+        <a routerLink="/liga" > hier.</a>
+      </p>-->
+      </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+

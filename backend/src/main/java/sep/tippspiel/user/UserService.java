@@ -10,6 +10,8 @@ import sep.tippspiel.spiel.SpielRepository;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Date;
@@ -22,6 +24,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private SpielRepository spielRepository;
+    @Autowired
+    private HttpServletRequest request;
 
 
 
@@ -40,6 +44,19 @@ public class UserService {
         }
 
     }
+
+    private void setSession(Users user) {
+
+        HttpSession session = request.getSession(true);
+
+        session.setAttribute("userId", user.getId());
+        session.setAttribute("email", user.getEmail());
+
+        session.setMaxInactiveInterval(36000);
+    }
+
+    // other user-related functions
+
     public boolean loginUser(String email, String passwort){
         Long id = this.userRepository.findUserIdByEmail(email);
 
@@ -47,10 +64,11 @@ public class UserService {
 
 
         if(email == user.getEmail() && user.getPasswort() == passwort){
-            System.out.println("Login Succesfull");
+            System.out.println("Login successful");
             user.logIn();
             System.out.println(user.getIsLoggedIn());
             userRepository.save(user);
+            setSession(user);
             return true;
         }
         else{

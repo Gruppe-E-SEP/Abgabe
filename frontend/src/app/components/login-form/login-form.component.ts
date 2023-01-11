@@ -1,9 +1,8 @@
-
-
-import {Component, OnInit} from '@angular/core';
-import {Users} from "../../models/users.model";
-import {UsersService} from "../../services/users.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { CookieService } from 'ngx-cookie-service';
+import { Component, OnInit } from '@angular/core';
+import { Users } from "../../models/users.model";
+import { UsersService } from "../../services/users.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login-form',
@@ -12,29 +11,26 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class LoginFormComponent {
 
-  user:Users;
+  user: Users;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private userService: UsersService) { this.user = new Users()}
+  constructor(private router: Router,
+              private cookieService: CookieService,
+              private userService: UsersService) {
+    this.user = new Users()
+  }
 
-
-  onSubmit(benutzer:any) {
+  onSubmit(benutzer: any) {
     const user = {
       email: benutzer.email,
       passwort: benutzer.passwort,
-
     }
-
-    console.log(user);
-    this.userService.loginUser(user).subscribe(result=>{this.userLoggedIn()});
-
+    this.userService.loginUser(user).subscribe(result => {
+      alert("Successful Login!");
+      let expireDate = new Date();
+      expireDate.setTime(expireDate.getTime() + (36000));
+      this.cookieService.set('email', benutzer.email, expireDate, '/', 'localhost', false);
+      this.router.navigate(['/dashboard']);
+    });
   }
-
-  userLoggedIn() {
-    window.location.href=('http://localhost:4200/');
-    alert("Successful Login!");
-  }
-
 
 }
